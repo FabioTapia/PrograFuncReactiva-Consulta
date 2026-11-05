@@ -138,11 +138,86 @@ resultado //Resultado: 15
 #### **¿Por qué es especial?**
 La lambda no recibió el `factor` como un parámetro (su único parámetro es `numero`), sino que fue a buscarlo al entorno de afuera, por eso en Scala, la función mantiene una referencia a ese `factor` externo para poder operar
 
+---
 
+## Parte 3 – Aplicar: ¿en qué problemas sirven las funciones anónimas?
 
+### Lista base de productos (usada en todos los ejemplos)
 
+Usaré una lista de 10 productos con la estructura: `Producto(nombre, categoria, precio, stock)`
 
+**Scala (case class):**
+```scala
+case class Producto(nombre: String, categoria: String, precio: Double, stock: Int)
 
+val productos = List(
+  Producto("Laptop", "Electrónica", 1200.0, 15),
+  Producto("Mouse", "Electrónica", 25.0, 100),
+  Producto("Teclado", "Electrónica", 75.0, 50),
+  Producto("Silla", "Muebles", 150.0, 30),
+  Producto("Escritorio", "Muebles", 300.0, 20),
+  Producto("Monitor", "Electrónica", 400.0, 25),
+  Producto("Lámpara", "Muebles", 45.0, 60),
+  Producto("Audífonos", "Electrónica", 80.0, 75),
+  Producto("Cuaderno", "Oficina", 5.0, 200),
+  Producto("Bolígrafo", "Oficina", 2.0, 500)
+)
+```
+**Java (class):**
+
+```java
+class Producto {
+    String nombre;
+    String categoria;
+    double precio;
+    int stock;
+    
+    Producto(String nombre, String categoria, double precio, int stock) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.stock = stock;
+    }
+}
+
+List<Producto> productos = Arrays.asList(
+    new Producto("Laptop", "Electrónica", 1200.0, 15),
+    new Producto("Mouse", "Electrónica", 25.0, 100),
+    new Producto("Teclado", "Electrónica", 75.0, 50),
+    new Producto("Silla", "Muebles", 150.0, 30),
+    new Producto("Escritorio", "Muebles", 300.0, 20),
+    new Producto("Monitor", "Electrónica", 400.0, 25),
+    new Producto("Lámpara", "Muebles", 45.0, 60),
+    new Producto("Audífonos", "Electrónica", 80.0, 75),
+    new Producto("Cuaderno", "Oficina", 5.0, 200),
+    new Producto("Bolígrafo", "Oficina", 2.0, 500)
+);
+```
+**Python (class):**
+
+```python
+class Producto:
+    def __init__(self, nombre, categoria, precio, stock):
+        self.nombre = nombre
+        self.categoria = categoria
+        self.precio = precio
+        self.stock = stock
+
+productos = [
+    Producto("Laptop", "Electrónica", 1200.0, 15),
+    Producto("Mouse", "Electrónica", 25.0, 100),
+    Producto("Teclado", "Electrónica", 75.0, 50),
+    Producto("Silla", "Muebles", 150.0, 30),
+    Producto("Escritorio", "Muebles", 300.0, 20),
+    Producto("Monitor", "Electrónica", 400.0, 25),
+    Producto("Lámpara", "Muebles", 45.0, 60),
+    Producto("Audífonos", "Electrónica", 80.0, 75),
+    Producto("Cuaderno", "Oficina", 5.0, 200),
+    Producto("Bolígrafo", "Oficina", 2.0, 500)
+]
+```
+
+**Catalógo de Lista de Problemas**
 
 
 
