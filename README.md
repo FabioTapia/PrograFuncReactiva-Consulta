@@ -219,15 +219,218 @@ productos = [
 
 **Catalógo de Lista de Problemas**
 
+-**Tipo de Problema:** Selección
+-**Pregunta que responde:** ¿Qué elementos cumplen una condición?
+-**Situación real:** Una tienda en línea necesita mostrar solo los productos con stock mayor a 50 unidades para evitar mostrar artículos agotados o con poco inventario
 
+### **Solución con funciones anónimas**
 
+**Scala**
 
+```scala
+val productosConStockAlto = productos.filter(_.stock > 50).foreach(println)
+// Salida:
+// Producto(Mouse,Electrónica,25.0,100)
+// Producto(Lámpara,Muebles,45.0,60)
+// Producto(Audífonos,Electrónica,80.0,75)
+// Producto(Cuaderno,Oficina,5.0,200)
+// Producto(Bolígrafo,Oficina,2.0,500)
+```
 
+**Java**
 
+```java
+List<Producto> productosConStockAlto = productos.stream()
+    .filter(p -> p.stock > 50)
+    .collect(Collectors.toList());
+productosConStockAlto.forEach(System.out::println);
+// Salida
+// Producto(Mouse,Electrónica,25.0,100)
+// Producto(Lámpara,Muebles,45.0,60)
+// Producto(Audífonos,Electrónica,80.0,75)
+// Producto(Cuaderno,Oficina,5.0,200)
+// Producto(Bolígrafo,Oficina,2.0,500)
+```
 
+**Python**
 
+```python
+productos_con_stock_alto = list(filter(lambda p: p.stock > 50, productos))
+for p in productos_con_stock_alto:
+    print(f"{p.nombre} - Stock: {p.stock}")
+# Salida:
+# Mouse - Stock: 100
+# Lámpara - Stock: 60
+# Audífonos - Stock: 75
+# Cuaderno - Stock: 200
+# Bolígrafo - Stock: 500
+```
 
+-**Tipo de Problema:** Transformación
+-**Pregunta que responde:** ¿Cómo convierto cada elemento en otro valor?
+-**Situación real:** Un sistema de facturación necesita calcular el precio con IVA (16%) para cada producto y mostrar solo los nombres con sus precios finales
 
+### **Solución con funciones anónimas**
+
+**Scala**
+
+```scala
+val preciosConIVA = productos.map(p => (p.nombre, p.precio * 1.16)).foreach(println)
+// Salida:
+// (Laptop,1392.0)
+// (Mouse,29.0)
+// (Teclado,87.0)
+// (Silla,174.0)
+// (Escritorio,348.0)
+// (Monitor,464.0)
+// (Lámpara,52.2)
+// (Audífonos,92.8)
+// (Cuaderno,5.8)
+// (Bolígrafo,2.32)
+```
+
+**Java**
+
+```java
+productos.stream()
+    .map(p -> new AbstractMap.SimpleEntry<>(p.nombre, p.precio * 1.16))
+    .forEach(System.out::println);
+// Salida
+// Salida:
+// (Laptop,1392.0)
+// (Mouse,29.0)
+// (Teclado,87.0)
+// (Silla,174.0)
+// (Escritorio,348.0)
+// (Monitor,464.0)
+// (Lámpara,52.2)
+// (Audífonos,92.8)
+// (Cuaderno,5.8)
+// (Bolígrafo,2.32)
+```
+
+**Python**
+
+```python
+precios_con_iva = list(map(lambda p: (p.nombre, p.precio * 1.16), productos))
+for nombre, precio in precios_con_iva:
+    print(f"{nombre}: ${precio:.2f}")
+# Salida:
+# Laptop: $1392.00
+# Mouse: $29.00
+# Teclado: $87.00
+# Silla: $174.00
+# Escritorio: $348.00
+# Monitor: $464.00
+# Lámpara: $52.20
+# Audífonos: $92.80
+# Cuaderno: $5.80
+# Bolígrafo: $2.32
+```
+
+-**Tipo de Problema:** Validación
+-**Pregunta que responde:** ¿Existe alguno que cumpla?, ¿Todos cumplen?
+-**Situación real:** Un sistema de inventario necesita verificar si hay al menos un producto agotado (stock = 0) para generar una alerta, y también verificar si todos los productos tienen precio mayor a 0.
+
+### **Solución con funciones anónimas**
+
+**Scala**
+
+```scala
+// ¿Existe algún producto agotado?
+val hayAgotados = productos.exists(_.stock == 0)
+hayAgotados
+// Salida: false
+
+// ¿Todos los productos tienen precio mayor a 0?
+val todosPrecioMayor0 = productos.forall(_.precio > 0)
+todosPrecioMayor0
+// Salida: true
+```
+
+**Java**
+
+```java
+boolean hayAgotados = productos.stream()
+    .anyMatch(p -> p.stock == 0);
+System.out.println("¿Hay productos agotados? " + hayAgotados);
+// Salida: false
+
+boolean todosPrecioMayor0 = productos.stream()
+    .allMatch(p -> p.precio > 0);
+System.out.println("¿Todos tienen precio positivo? " + todosPrecioMayor0);
+// Salida: true
+```
+
+**Python**
+
+```python
+hay_agotados = any(p.stock == 0 for p in productos)
+print(f"¿Hay productos agotados? {hay_agotados}")
+# Salida: False
+
+todos_con_precio_positivo = all(p.precio > 0 for p in productos)
+print(f"¿Todos tienen precio positivo? {todos_con_precio_positivo}")
+# Salida: True
+```
+
+-**Tipo de Problema:** Extremos (maxBy / minBy)
+-**Pregunta que responde:** ¿Cuál es el mejor o el peor según un criterio?
+-**Situación real:** Un sistema de inventario necesita identificar el producto más caro para destacarlo en la página principal, y el producto con menos stock para generar una alerta de reabastecimiento urgente.
+
+### **Solución con funciones anónimas**
+
+**Scala**
+// Producto más caro
+val productoMasCaro = productos.maxBy(_.precio)
+productoMasCaro.nombre
+productoMasCaro.precio
+//Salida:
+//Laptop
+//1200.0
+
+//Producto con menos stock
+val productoMenosStock = productos.minBy(_.stock)
+productoMenosStock.nombre
+productoMenosStock.stock
+//Salida:
+//Laptop
+//15
+```scala
+
+```
+
+**Java**
+
+```java
+// Producto más caro
+Producto productoMasCaro = productos.stream()
+    .max(Comparator.comparingDouble(p -> p.precio))
+    .orElse(null);
+System.out.println("Producto más caro: " + productoMasCaro.nombre + " ($" + productoMasCaro.precio + ")");
+// Salida: Producto más caro: Laptop ($1200.0)
+
+// Producto con menos stock
+Producto productoMenosStock = productos.stream()
+    .min(Comparator.comparingInt(p -> p.stock))
+    .orElse(null);
+System.out.println("Producto con menos stock: " + productoMenosStock.nombre + " (" + productoMenosStock.stock + " unidades)");
+// Salida: Producto con menos stock: Laptop (15 unidades)
+```
+
+**Python**
+
+```python
+# Producto más caro
+producto_mas_caro = max(productos, key=lambda p: p.precio)
+print(f"Producto más caro: {producto_mas_caro.nombre} (${producto_mas_caro.precio})")
+# Salida: Producto más caro: Laptop ($1200.0)
+
+# Producto con menos stock
+producto_menos_stock = min(productos, key=lambda p: p.stock)
+print(f"Producto con menos stock: {producto_menos_stock.nombre} ({producto_menos_stock.stock} unidades)")
+# Salida: Producto con menos stock: Laptop (15 unidades)
+```
 
 
 
