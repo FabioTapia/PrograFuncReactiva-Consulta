@@ -1,7 +1,10 @@
 # PrograFuncReactiva-Consulta
 
 ## Parte 1 – Explorar: la programación funcional en el mundo real
+
 Antes de programar, investiga dónde y para qué se usa la programación funcional fuera del aula.
+
+Fuera del aula, la programación funcional se usa en Big Data, telecomunicaciones, finanzas y desarrollo web (por empresas como WhatsApp, Netflix y bancos globales) porque su enfoque en datos inmutables y funciones puras permite procesar billones de datos en paralelo y mantener millones de usuarios conectados al mismo tiempo sin que el sistema sufra errores, se bloquee o colapse
 
 ### Caso 1: Apache Spark (Big Data)
 
@@ -42,7 +45,10 @@ List<Movie> recommendations = userViewingHistory.stream()
     .collect(Collectors.toList());
 ```
 
-
+**¿Qué hace cada lambda?**
+- `line => line.split(" ")`: recibe una string y la divide en palabras
+- `word => (word, 1)`: convierte cada palabra en un par (palabra, 1)
+- `(a, b) => a + b`: suma los conteos de palabras iguales
 
 
 
