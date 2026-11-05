@@ -217,13 +217,15 @@ productos = [
 ]
 ```
 
-**Catalógo de Lista de Problemas**
+### Catalógo de Lista de Problemas
 
--**Tipo de Problema:** Selección
+### Tipo 1: Selección (filter)
+
 -**Pregunta que responde:** ¿Qué elementos cumplen una condición?
+
 -**Situación real:** Una tienda en línea necesita mostrar solo los productos con stock mayor a 50 unidades para evitar mostrar artículos agotados o con poco inventario
 
-### **Solución con funciones anónimas**
+### Solución con funciones anónimas
 
 **Scala**
 
@@ -266,8 +268,10 @@ for p in productos_con_stock_alto:
 # Bolígrafo - Stock: 500
 ```
 
--**Tipo de Problema:** Transformación
+### Tipo 2: Transformación (map)
+
 -**Pregunta que responde:** ¿Cómo convierto cada elemento en otro valor?
+
 -**Situación real:** Un sistema de facturación necesita calcular el precio con IVA (16%) para cada producto y mostrar solo los nombres con sus precios finales
 
 ### **Solución con funciones anónimas**
@@ -328,8 +332,11 @@ for nombre, precio in precios_con_iva:
 # Bolígrafo: $2.32
 ```
 
--**Tipo de Problema:** Validación
+
+### Tipo 3: Validación (exists, forall)
+
 -**Pregunta que responde:** ¿Existe alguno que cumpla?, ¿Todos cumplen?
+
 -**Situación real:** Un sistema de inventario necesita verificar si hay al menos un producto agotado (stock = 0) para generar una alerta, y también verificar si todos los productos tienen precio mayor a 0.
 
 ### **Solución con funciones anónimas**
@@ -374,13 +381,17 @@ print(f"¿Todos tienen precio positivo? {todos_con_precio_positivo}")
 # Salida: True
 ```
 
--**Tipo de Problema:** Extremos (maxBy / minBy)
+### Tipo 4: Extremos (maxBy / minBy)
+
 -**Pregunta que responde:** ¿Cuál es el mejor o el peor según un criterio?
+
 -**Situación real:** Un sistema de inventario necesita identificar el producto más caro para destacarlo en la página principal, y el producto con menos stock para generar una alerta de reabastecimiento urgente.
 
 ### **Solución con funciones anónimas**
 
 **Scala**
+
+```scala
 // Producto más caro
 val productoMasCaro = productos.maxBy(_.precio)
 productoMasCaro.nombre
@@ -396,8 +407,6 @@ productoMenosStock.stock
 //Salida:
 //Laptop
 //15
-```scala
-
 ```
 
 **Java**
