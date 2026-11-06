@@ -535,6 +535,33 @@ stockBajo.size
 
 4. **Problema que resuelve:** Un almacén necesita separar los productos en dos lotes para aplicar diferentes tarifas de envío: una para productos con mucho stock (envío estándar) y otra para productos con poco stock (envío prioritario). Es una evolución del tipo de problema de Selección
 
+---
+
+### 4.3 Combinar Operaciones
+
+- **Pregunta:** ¿Qué productos tienen stock mayor a 50 unidades, ordenados del más barato al más caro?
+
+**Cadena de operaciones:**
+  
+```scala
+// 1. Dividimos la lista en dos usando partition
+val (stockAlto, stockBajo) = productos.partition(_.stock > 50)
+
+// 2. Ordeno la lista de stock alto por precio usando sortBy
+val stockAltoOrdenado = stockAlto.sortBy(_.precio)
+
+// 3. Imprimimos el resultado
+stockAltoOrdenado.foreach(p => println(p.nombre + " - $" + p.precio + " - Stock: " + p.stock))
+
+// Salida:
+//Bolígrafo - $2.0 - Stock: 500
+//Cuaderno - $5.0 - Stock: 200
+//Mouse - $25.0 - Stock: 100
+//Lámpara - $45.0 - Stock: 60
+//Audífonos - $80.0 - Stock: 75
+```
+
+4. **Problema que resuelve:** Un almacén necesita separar los productos en dos lotes para aplicar diferentes tarifas de envío: una para productos con mucho stock (envío estándar) y otra para productos con poco stock (envío prioritario). Es una evolución del tipo de problema de Selección
 
 
 
