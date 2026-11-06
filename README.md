@@ -561,9 +561,39 @@ stockAltoOrdenado.foreach(p => println(p.nombre + " - $" + p.precio + " - Stock:
 //Audífonos - $80.0 - Stock: 75
 ```
 
-4. **Problema que resuelve:** Un almacén necesita separar los productos en dos lotes para aplicar diferentes tarifas de envío: una para productos con mucho stock (envío estándar) y otra para productos con poco stock (envío prioritario). Es una evolución del tipo de problema de Selección
+---
 
+---
 
+## Parte 5 – Comparar y concluir
+
+### 5.1 Scala, Java y Python frente a frente
+
+| Criterio | Scala | Java | Python |
+|---|---|---|---|
+| **Sintaxis de la lambda** | `(p => p.precio > 100)` — muy corta y directa | `(p -> p.getPrecio() > 100)` — usa `->` y requiere getters | `lambda p: p.precio > 100` — usa la palabra `lambda` |
+| **Cómo se declara el tipo** | Con `case class` (es inmutable) | Con una `class` tradicional, su constructor y getters | Con una `class` y `__init__` |
+| **Operaciones con listas disponibles** | Nativas en `List`: `map`, `filter`, `foldLeft`, `groupBy`, etc. | A través de `stream()` desde Java 8: `.stream().map(...).filter(...)` | Funciones incluidas `map()`, `filter()`, y `functools.reduce` |
+| **Restricción del lenguaje** | Muy flexible, variabels inmutables | Confuso, requiere `Collectors` y `Optional` para algunos casos | El tipado es dinámico, no exige declarar tipos pero puede ser menos seguro |
+| **Legibilidad (mi opinión)** |  La más limpia y facil de entender | Codigo más código repetitivo | Buena pero la sintaxis `lambda` es menos natural que en Scala |
+
+#### ¿En qué lenguaje fue más natural resolver los problemas?
+
+Para mí, Scala fue el más natural porque las operaciones como `map`, `filter`, `maxBy` y `groupBy` están integradas directamente en el lenguaje y la sintaxis de las lambdas (`p => ...`) es muy corta, en Java hay que convertir la lista a `stream()` primero y usar `Collectors` al final, lo que es más confuso en comparación con el anterior y, en Python se puede etender mas qeu Java, pero la palabra `lambda` se siente más limitada ya que solo permite una expresión
+
+#### ¿En qué tipo de problema encontraste más diferencias entre lenguajes y por qué?
+
+El tipo de problema donde más diferencias noté fue en **Acumulación / Extremos** Ya que en Scala, `maxBy` y `foldLeft` son métodos directos de la lista, pero en Java, hay que usar `stream().max(Comparator.comparingDouble(...))` que es más largo y confuso , y en Python, `max()` con el parámetro `key=lambda` es elegante pero funciona distinto internamente, demostrando que Scala está diseñado desde el inicio para programación funcional, mientras que Java la adoptó después y Python la usa como complemento
+
+---
+
+### 5.2 Conclusión
+
+Las funciones anónimas son fundamentales en la programación funcional porque permiten expresar qué queremos hacer con los datos sin preocuparnos por el cómo ya que en lugar de escribir bucles `for` con variables mutables, pasamos una funci´ñon anónima a operaciones como `map`, `filter` o `foldLeft`, y el lenguaje se encarga de resolver el ejercicio y esto produce código más corto, legible y menos propenso a errores, ya que lso datosd no se pueden modificar y es mas seguro
+
+Un ejemplo claro de su importancia en el mundo real es **Apache Spark**, ya que spark procesa petabytes de datos distribuidos en clusters, y cada transformación (`map`, `filter`, `reduceByKey`) se define con funciones anónimas. Y gracias a que estas funciones que son **ciudadanas de primera clase** y no tienen efectos secundarios, Spark puede serializarlas, enviarlas a otros nodos del cluster y ejecutarlas en paralelo sin riesgo de corrupción de datos. Por eso sin funciones anónimas, procesar big data de forma distribuida sería muchísimo más complejo y propenso a errores
+
+---
 
 
 
