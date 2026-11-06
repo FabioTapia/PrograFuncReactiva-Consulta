@@ -1,21 +1,13 @@
 
-### Tipo 1: Selección (filter)
-
 //EJERCICIO 1
 println("--- TIPO 1: Selección (filter) ---")
 val productosConStockAlto = productos.filter(_.stock > 50).foreach(println)
 
----
-
-### Tipo 2: Transformación (map)
 
 //EJERCICIO 2
 println("\n--- TIPO 2: Transformación (map) ---")
 val preciosConIVA = productos.map(p => (p.nombre, p.precio * 1.16)).foreach(println)
 
----
-
-### Tipo 3: Validación (exists, forall)
 
 //EJERCICIO 3
 println("\n--- TIPO 3: Validación (exists, forall) ---")
@@ -24,9 +16,6 @@ val hayAgotados = productos.exists(_.stock == 0)
 // ¿Todos los productos tienen precio mayor a 0?
 val todosPrecioMayor0 = productos.forall(_.precio > 0)
 
----
-
-### Tipo 4: Extremos (maxBy / minBy)
 
 //EJERCICIO 4
 println("\n--- TIPO 4: Extremos (maxBy, minBy) ---")
@@ -38,5 +27,3 @@ productoMasCaro.precio
 val productoMenosStock = productos.minBy(_.stock)
 productoMenosStock.nombre
 productoMenosStock.stock
-
----
