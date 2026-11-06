@@ -50,6 +50,8 @@ List<Movie> recommendations = userViewingHistory.stream()
 - `word => (word, 1)`: convierte cada palabra en un par (palabra, 1)
 - `(a, b) => a + b`: suma los conteos de palabras iguales
 
+---
+
 ## Parte 2 - Entender: ¿Qué es una función anónima?
 
 ### 1. ¿Qué es una función anónima y de dónde viene el nombre lambda?
@@ -216,6 +218,7 @@ productos = [
     Producto("Bolígrafo", "Oficina", 2.0, 500)
 ]
 ```
+---
 
 ### Catalógo de Lista de Problemas
 
@@ -267,6 +270,7 @@ for p in productos_con_stock_alto:
 # Cuaderno - Stock: 200
 # Bolígrafo - Stock: 500
 ```
+---
 
 ### Tipo 2: Transformación (map)
 
@@ -332,6 +336,7 @@ for nombre, precio in precios_con_iva:
 # Bolígrafo: $2.32
 ```
 
+---
 
 ### Tipo 3: Validación (exists, forall)
 
@@ -380,6 +385,8 @@ todos_con_precio_positivo = all(p.precio > 0 for p in productos)
 print(f"¿Todos tienen precio positivo? {todos_con_precio_positivo}")
 # Salida: True
 ```
+
+---
 
 ### Tipo 4: Extremos (maxBy / minBy)
 
@@ -440,6 +447,104 @@ producto_menos_stock = min(productos, key=lambda p: p.stock)
 print(f"Producto con menos stock: {producto_menos_stock.nombre} ({producto_menos_stock.stock} unidades)")
 # Salida: Producto con menos stock: Laptop (15 unidades)
 ```
+
+---
+
+## Parte 4 – Ampliar: cuatro operaciones nuevas
+
+A continuación, presento 4 operaciones distintas a las vistas en clase, con su ficha técnica y un ejemplo usando la misma lista de `productos`
+
+### 1. Operación: `groupBy` (Agrupar)
+
+1. **Qué hace:** Agrupa los elementos de una lista en un diccionario donde la clave es el resultado de la función y el valor es la lista de elementos que coinciden
+2. **Función anónima que recibe:** Recibe una función que devuelve el criterio de agrupación (en este caso, un `String` con la categoría)
+3. **Ejemplo en Scala:**
+```scala
+val productosPorCategoria = productos.groupBy(_.categoria)
+productosPorCategoria.foreach { case (cat, lista) => 
+  println(s"$cat: ${lista.size} productos") 
+}
+// Salida:
+// Electrónica: 4 productos
+// Muebles: 3 productos
+// Oficina: 2 productos
+```
+4. **Problema que resuelve:** Una tienda en línea necesita mostrar los productos organizados por secciones (categorías) en su menú . Se parece al tipo de problema de Transformación, pero en lugar de cambiar el elemento, cambia la estructura de la colección.
+
+---
+
+### 2. Operación: `sortBy` (Ordenar)
+
+- **Qué hace:** Ordena los elementos de la lista de menor a mayor según el valor que devuelve la función.
+- **Función anónima que recibe:** Recibe una función que extrae el valor por el cual se quiere ordenar (debe ser un tipo ordenable, como `Int` o `Double`)
+- **Ejemplo en Scala:**
+
+```scala
+val productosOrdenadosPorPrecio = productos.sortBy(_.precio).foreach(println)
+// Salida:
+//Producto(Bolígrafo,Oficina,2.0,500)
+//Producto(Cuaderno,Oficina,5.0,200)
+//Producto(Mouse,Electrónica,25.0,100)
+//Producto(Lámpara,Muebles,45.0,60)
+//Producto(Teclado,Electrónica,75.0,50)
+//Producto(Audífonos,Electrónica,80.0,75)
+//Producto(Silla,Muebles,150.0,30)
+//Producto(Escritorio,Muebles,300.0,20)
+//Producto(Monitor,Electrónica,400.0,25)
+//Producto(Laptop,Electrónica,1200.0,15)
+```
+
+4. **Problema que resuelve:** Un usuario quiere ver los productos ordenados del más barato al más caro para encontrar opciones dentro de su presupuesto (es un tipo de problema de Organización/Visualización)
+
+---
+
+### 3. Operación: `find` (Buscar)
+
+- **Qué hace:** Busca y devuelve el primer elemento que cumple la condición
+- **Función anónima que recibe:** Recibe una función que devuelve un Boolean (la condición de búsqueda)
+- **Ejemplo en Scala:**
+
+```scala
+val laptop = productos.find(_.nombre == "Laptop")
+laptop
+// Salida: Some(Producto(Laptop,Electrónica,1200.0,15))
+
+val tablet = productos.find(_.nombre == "Tablet")
+tablet
+// Salida: None
+```
+
+4. **Problema que resuelve:** Un sistema de inventario necesita buscar un producto específico por su ID o nombre exacto para actualizar su stock. Se parece al tipo de Selección (filter), pero en lugar de devolver una lista, devuelve un solo elemento (o nada).
+
+---
+
+### 4. Operación: `partition` (dividir)
+
+- **Qué hace:** Divide la lista en dos listas separadas (una tupla de dos listas): la primera con los elementos que cumplen la condición, y la segunda con los que no
+- **Función anónima que recibe:** Recibe una función que devuelve un Boolean.
+- **Ejemplo en Scala:**
+
+```scala
+val (stockAlto, stockBajo) = productos.partition(_.stock > 50)
+stockAlto.size
+stockBajo.size
+// Salida:
+//Stock alto: 5
+//Stock bajo: 5
+```
+
+4. **Problema que resuelve:** Un almacén necesita separar los productos en dos lotes para aplicar diferentes tarifas de envío: una para productos con mucho stock (envío estándar) y otra para productos con poco stock (envío prioritario). Es una evolución del tipo de problema de Selección
+
+
+
+
+
+
+
+
+
+
+
 
 
 
