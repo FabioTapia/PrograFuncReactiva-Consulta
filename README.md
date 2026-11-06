@@ -563,8 +563,6 @@ stockAltoOrdenado.foreach(p => println(p.nombre + " - $" + p.precio + " - Stock:
 
 ---
 
----
-
 ## Parte 5 – Comparar y concluir
 
 ### 5.1 Scala, Java y Python frente a frente
